@@ -7,10 +7,27 @@
 		},
 		"ghcr.io/devcontainers/features/docker-from-docker:1": {},
 		"ghcr.io/devcontainers/features/git:1": {}
-	}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [5000, 5001],
+
+	// dev-certs details:
+	// https://www.fearofoblivion.com/setting-up-asp-net-dev-certs-for-both-wsl-and-windows
+	// https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=visual-studio#ssl-linux
+	// 1. Export it locally using this command:
+	//    * Windows PowerShell:
+	//        dotnet dev-certs https --trust; dotnet dev-certs https -ep "$env:USERPROFILE/.aspnet/https/aspnetapp.pfx" -p "SecurePwdGoesHere"
+	//    * macOS/Linux terminal:
+	//        dotnet dev-certs https --trust; dotnet dev-certs https -ep "./local-cert/aspnetapp.pfx" -p "SecurePwdGoesHere"
+	// 	  - SecurePwdGoesHere=D112h49Seng@dev(secure password)
+	// 
+	// 2. Uncomment these 'remoteEnv' lines:
+	// if this don't work just manually export the env
+	// "remoteEnv": {
+	// 	"ASPNETCORE_Kestrel__Certificates__Default__Password": "SecurePwdGoesHere",
+	// 	"ASPNETCORE_Kestrel__Certificates__Default__Path": "../../local-cert/aspnetapp.pfx"
+	// }
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "dotnet restore",
