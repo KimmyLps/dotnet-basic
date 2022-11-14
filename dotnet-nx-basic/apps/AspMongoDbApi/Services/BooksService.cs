@@ -14,7 +14,7 @@ namespace AspMongoDbApi.Services
     {
       var mongoClient = new MongoClient(
           bookStoreDatabaseSettings.Value.ConnectionString);
-          
+
       Console.WriteLine(bookStoreDatabaseSettings.Value.ConnectionString);
 
       var mongoDatabase = mongoClient.GetDatabase(
@@ -27,8 +27,7 @@ namespace AspMongoDbApi.Services
     public async Task<List<Book>> GetAsync() =>
         await _booksCollection.Find(_ => true).ToListAsync();
 
-
-    public async Task<Book?> GetAsync(string id) =>
+    public async Task<Book?> GetAsync(long id) =>
         await _booksCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
 
@@ -36,11 +35,11 @@ namespace AspMongoDbApi.Services
         await _booksCollection.InsertOneAsync(newBook);
 
 
-    public async Task UpdateAsync(string id, Book updatedBook) =>
+    public async Task UpdateAsync(long id, Book updatedBook) =>
         await _booksCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
 
 
-    public async Task RemoveAsync(string id) =>
+    public async Task RemoveAsync(long id) =>
         await _booksCollection.DeleteOneAsync(x => x.Id == id);
   }
 }
