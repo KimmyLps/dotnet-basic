@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  dotnet-nx-basic:
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+
+      # Update 'VARIANT' to pick a .NET Core version: 3.1, 6.0
+      # Append -bullseye or -focal to pin to an OS version
+      args:
+        - "VARIANT=6.0-bullseye"
+        - "NODE_VERSION=lts/*"
+    container_name: dotnet-nx-basic
+
+    volumes:
+      - ../..:/workspaces/dotnet-basic:cached
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    command: sleep infinity
+
+    networks:
+      - asp-mongodb-network
+
+networks:
+  asp-mongodb-network:
+    external: true
+    name: asp-mongodb-network

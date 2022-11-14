@@ -1,17 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/dotnet
 {
 	"name": "C# (.NET)",
-	"image": "mcr.microsoft.com/devcontainers/dotnet:0-6.0-bullseye",
-	"features": {
-		"ghcr.io/devcontainers/features/node:1": {
-			"version": "lts"
-		},
-		"ghcr.io/devcontainers/features/docker-from-docker:1": {},
-		"ghcr.io/devcontainers/features/git:1": {}
+	// if using docker-compose.yml comment this
+	"dockerComposeFile": "./docker-compose.yml",
+	"service": "dotnet-nx-basic",
+	// "workspaceMount": "/home/bangz/develop/wn/wn-eng/api/wn-eng-api",
+	"workspaceFolder": "/workspaces/dotnet-basic/dotnet-nx-basic",
+	"shutdownAction": "stopCompose",
+	// Set *default* container specific settings.json values on container create.
+	// Add the IDs of extensions you want installed when the container is created.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-dotnettools.csharp@1.24.4",
+				// "ms-dotnettools.csharp",
+				"humao.rest-client",
+				"cweijan.vscode-mysql-client2",
+				"davidanson.vscode-markdownlint",
+				"kreativ-software.csharpextensions",
+				"eamodio.gitlens",
+				"TabNine.tabnine-vscode",
+				"EthanSK.restore-terminals",
+				"k--kato.docomment",
+				"zxh404.vscode-proto3"
+			]
+		}
 	},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [5000, 5001],
-
+	// "forwardPorts": [
+	// 	5000
+	// ],
+	// [Optional] To reuse of your local HTTPS dev cert:
+	//
 	// dev-certs details:
 	// https://www.fearofoblivion.com/setting-up-asp-net-dev-certs-for-both-wsl-and-windows
 	// https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-6.0&tabs=visual-studio#ssl-linux
@@ -24,17 +45,29 @@
 	// 
 	// 2. Uncomment these 'remoteEnv' lines:
 	// if this don't work just manually export the env
-	// "remoteEnv": {
-	// 	"ASPNETCORE_Kestrel__Certificates__Default__Password": "SecurePwdGoesHere",
-	// 	"ASPNETCORE_Kestrel__Certificates__Default__Path": "../../local-cert/aspnetapp.pfx"
-	// }
-
+// 	"remoteEnv": {
+// 		"ASPNETCORE_Kestrel__Certificates__Default__Password": "SecurePwdGoesHere",
+// 		"ASPNETCORE_Kestrel__Certificates__Default__Path": "../../local-cert/aspnetapp.pfx"
+//    },
+	//
+	// 3. Do one of the following depending on your scenario:
+	//    * When using GitHub Codespaces and/or Remote - Containers:
+	//      1. Start the container
+	//      2. Drag ~/.aspnet/https/aspnetapp.pfx into the root of the file explorer
+	//      3. Open a terminal in VS Code and run "mkdir -p /home/vscode/.aspnet/https && mv aspnetapp.pfx /home/vscode/.aspnet/https"
+	//
+	//    * If only using Remote - Containers with a local container, uncomment this line instead:
+	// "mounts": [ "source=${env:HOME}${env:USERPROFILE}/.aspnet/https,target=/home/vscode/.aspnet/https,type=bind" ],
+	// "mounts": [ "source=${env:HOME}${env:USERPROFILE}/.aspnet/https,target=/home/vscode/.aspnet/https,type=bind" ],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "dotnet restore",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"postCreateCommand": "rm -rf dist/ && npm install",
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode",
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "lts"
+		},
+		"ghcr.io/devcontainers/features/docker-from-docker:1": {},
+		"ghcr.io/devcontainers/features/git:1": {}
+	}
 }

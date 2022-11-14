@@ -1,1 +1,1 @@
-# dotnet-basic
+# dotnet-nx-basic
