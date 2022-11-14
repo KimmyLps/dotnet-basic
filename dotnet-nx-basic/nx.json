@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "dotnet-basic",
+  "npmScope": "dotnet-nx-basic",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
