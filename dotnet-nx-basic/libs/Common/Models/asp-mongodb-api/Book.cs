@@ -6,8 +6,11 @@ namespace Common.Models.asp_mongodb_api
   public class Book
   {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
+    [BsonRepresentation(BsonType.Int64)]
+    public long Id { get; set; }
+
+    [BsonRepresentation(BsonType.String)]
+    public string? BookId { get; set; } = Guid.NewGuid().ToString();
 
     [BsonElement("Name")]
     public string BookName { get; set; } = null!;

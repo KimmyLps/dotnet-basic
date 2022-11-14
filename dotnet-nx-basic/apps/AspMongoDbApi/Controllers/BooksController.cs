@@ -19,8 +19,8 @@ namespace AspMongoDbApi.Controllers
     public async Task<List<Book>> Get() =>
         await _booksService.GetAsync();
 
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Book>> Get(string id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Book>> Get([FromRoute] long id)
     {
       var book = await _booksService.GetAsync(id);
 
@@ -33,15 +33,15 @@ namespace AspMongoDbApi.Controllers
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Book newBook)
+    public async Task<IActionResult> Post([FromBody] Book newBook)
     {
       await _booksService.CreateAsync(newBook);
 
       return CreatedAtAction(nameof(Get), new { id = newBook.Id }, newBook);
     }
 
-    [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> Update(string id, Book updatedBook)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update([FromRoute] long id,[FromBody] Book updatedBook)
     {
       var book = await _booksService.GetAsync(id);
 
@@ -57,8 +57,8 @@ namespace AspMongoDbApi.Controllers
       return NoContent();
     }
 
-    [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> Delete(string id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] long id)
     {
       var book = await _booksService.GetAsync(id);
 
